@@ -45,7 +45,7 @@ namespace 인하테크개조
                     {
                         formsPlot1.Plot.AddScatterLines(
                             servoX.ToArray(), loadY.ToArray(),
-                            Color.Blue, 1);
+                            Color.Blue, 2);
                     }
         
                     formsPlot1.Plot.XLabel("거리 [mm]");

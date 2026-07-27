@@ -20,11 +20,13 @@ namespace 인하테크개조
         new XgtPlcClient();
         public Form1()
         {
+
+
             InitializeComponent();
             InitializeProgramLogic();
         }
 
-        
+
 
         private void btnPlcConnect_Click(object sender, EventArgs e)
         {
@@ -64,52 +66,30 @@ namespace 인하테크개조
             }
         }
 
-        private void btnReadTest_Click(object sender, EventArgs e)
+        private void btnQtyR_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // 연결 안 되어 있으면 연결
-                if (!plc.IsConnected)
-                    plc.Connect("192.168.1.2", 2004, 2000);
+            if (!plcConnected)
+                return;
 
-                // D1000 읽기
-                ushort value = plc.ReadWord("D2000");
+            plc.WriteWord(ADDR_TOTAL_QTY, 0);
 
-                MessageBox.Show(
-                    $"통신 성공!\n\n" +
-                    $"D2000 = {value}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "통신 실패\n\n" +
-                    ex.Message);
-            }
+            CurrentQty.TotalQty = 0;
+            UpdateQtyLabel();
         }
 
-        private void btnWriteTest_Click(object sender, EventArgs e)
+        private void btnPqtyR_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // 연결 안 되어 있으면 연결
-                if (!plc.IsConnected)
-                    plc.Connect("192.168.1.2", 2004, 2000);
+            CurrentQty.PassQty = 0;
+            UpdateQtyLabel();
+            SaveQtySettings();
+        }
 
-                // 테스트 값 쓰기
-                plc.WriteWord("D1000", 1111);
-                plc.WriteWord("D1002", 2222);
-                plc.WriteWord("D1004", 3333);
-                plc.WriteWord("D1006", 4444);
-                plc.WriteWord("D1008", 5555);
-
-                MessageBox.Show("쓰기 완료!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "쓰기 실패\n\n" +
-                    ex.ToString());
-            }
+        private void btnNqtyR_Click(object sender, EventArgs e)
+        {
+            CurrentQty.NgQty = 0;
+            UpdateQtyLabel();
+            SaveQtySettings();
         }
     }
 }
+    

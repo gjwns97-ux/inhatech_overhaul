@@ -21,6 +21,19 @@ namespace 인하테크개조
 {
     public partial class Form1 : Form
     {
+        // 모델별 생산량
+        // =========================================================
+        private sealed class QtyData
+        {
+            public int TotalQty { get; set; }
+            public int PassQty { get; set; }
+            public int NgQty { get; set; }
+        }
+
+        private readonly Dictionary<int, QtyData> modelQty =
+            new Dictionary<int, QtyData>();
+
+
         // =========================================================
         // PLC 주소: 주소 확정 후 따옴표 안에 입력
         // =========================================================
@@ -28,47 +41,68 @@ namespace 인하테크개조
         // 현재 모델번호
         private const string ADDR_MODEL_NO = "";
 
-        // 고속 이송거리
-        private const string ADDR_HIGH_DISTANCE = "";
+        // PLC 총 생산량
+        private const string ADDR_TOTAL_QTY = "D110";
 
-        // 압입 이송거리
-        private const string ADDR_LOW_DISTANCE = "";
+        // 고속 하강위치
+        private const string ADDR_HIGH_DISTANCE = "D1000";
+
+        // 압입 종료위치
+        private const string ADDR_LOW_DISTANCE = "D1002";
 
         // 고속 속도
-        private const string ADDR_HIGH_SPEED = "";
+        private const string ADDR_HIGH_SPEED = "D1004";
 
         // 압입 속도
-        private const string ADDR_LOW_SPEED = "";
+        private const string ADDR_LOW_SPEED = "D1006";
 
         // 설정 하중
-        private const string ADDR_LOAD_SET = "";
+        private const string ADDR_LOAD_SET = "D1008";
+
+        // 대기 위치
+        private const string ADDR_WAIT_POS = "D1100";
 
         // 실시간 하중
-        private const string ADDR_LOAD_REAL = "";
+        private const string ADDR_LOAD_REAL = "D2002";
 
         // 실시간 거리
-        private const string ADDR_POS_REAL = "";
+        private const string ADDR_POS_REAL = "D2000";
 
         // 자동/수동 상태
-        private const string ADDR_AUTO_MANUAL = "";
+        private const string ADDR_AUTO_MANUAL = "P000";
 
-        // 사이클 시작 신호
-        private const string ADDR_CYCLE_START = "";
+        // 사이클 신호
+        // 1 = 사이클 진행
+        // 0 = 사이클 종료
+        private const string ADDR_CYCLE_START = "D2006";
 
-        // 그래프 그리기 시작 신호
-        private const string ADDR_GRAPH_START = "";
+        // 그래프 수집 신호
+        // 1 = 그래프 데이터 수집
+        // 0 = 그래프 데이터 수집 정지
+        private const string ADDR_GRAPH_START = "D2008";
 
-        // 사이클 종료 신호
-        private const string ADDR_CYCLE_END = "";
+        // PC 판정 OK 신호
+        private const string ADDR_PC_OK = "D1010";
 
-        // PC 판정 결과 전송 신호
-        private const string ADDR_PC_RESULT = "";
+        // PC 판정 NG 신호
+        private const string ADDR_PC_NG = "D1012";
+
+        // 비상정지 신호
+        private const string ADDR_EMG = "P004";
+
+        // 에어리어 센서
+        private const string ADDR_AREA_SENSOR = "P14"; // 원래는 P00E임 16진수로 변환한거임
+
+        // 자동운전 중 신호
+        private const string ADDR_AUTO_RUN = "P020";
+
+
 
         // 위치값 변환 배율
-        private const double POS_SCALE = 10000.0;
+        private const double POS_SCALE = 100.0;
 
         // 하중값 변환 배율
-        private const double LOAD_SCALE = 10.0;
+        private const double LOAD_SCALE = 1.0;
 
         private readonly string saveFolderPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
@@ -78,6 +112,12 @@ namespace 인하테크개조
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             "CycleData",
             "model_settings.ini");
+
+
+        private readonly string qtySettingFilePath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            "CycleData",
+            "qty_settings.ini");
 
         private sealed class BoxSpec
         {
@@ -103,6 +143,7 @@ namespace 인하테크개조
             public string ModelName { get; set; }
             public double HighDistance { get; set; }
             public double LowDistance { get; set; }
+            public double WaitPos { get; set; }
             public double HighSpeed { get; set; }
             public double LowSpeed { get; set; }
             public double LoadSet { get; set; }
@@ -118,10 +159,32 @@ namespace 인하테크개조
 
         private int currentModelNo = 1;
         private bool plcConnected;
+
+        // 현재 그래프 데이터 수집 중인지
         private bool collecting;
+
+        // 이전 PLC 신호 상태
         private bool prevCycleStart;
+        private bool prevGraphStart;
+
+        // 현재 사이클 진행 상태
+        private bool cycleRunning;
+
+        // 현재 사이클 판정 완료 여부
         private bool cycleJudgeDone;
+
+        // 마지막 판정 결과
         private bool lastJudgeOk;
+
+        private bool prevEmg = false;
+
+        private bool prevAreaSensor = false;
+
+        private bool emgPopupShown = false;
+
+        private bool plcDisconnectPopupShown = false;
+
+        private bool emergencyCancelledCycle = false;
 
         private ModelConfig CurrentConfig
         {
@@ -132,6 +195,26 @@ namespace 인하테크개조
 
                 return modelConfigs.Values.OrderBy(x => x.ModelNo).First();
             }
+        }
+
+        private QtyData CurrentQty
+        {
+            get
+            {
+                if (!modelQty.ContainsKey(currentModelNo))
+                {
+                    modelQty[currentModelNo] = new QtyData();
+                }
+
+                return modelQty[currentModelNo];
+            }
+        }
+
+        private void UpdateQtyLabel()
+        {
+            
+            lblPqty.Text = CurrentQty.PassQty.ToString();
+            lblNqty.Text = CurrentQty.NgQty.ToString();
         }
 
         private void InitializeProgramLogic()
@@ -156,28 +239,176 @@ namespace 인하테크개조
 
             InitDefaultModels();
             LoadModelSettings();
+            LoadQtySettings();
             RefreshModelCombo();
 
             if (txtModelSelcet.Items.Count > 0)
                 txtModelSelcet.SelectedIndex = 0;
+            UpdateQtyLabel();
+
+            prevCycleStart = false;
+            prevGraphStart = false;
+            cycleRunning = false;
+            collecting = false;
+            cycleJudgeDone = false;
+            lastJudgeOk = false;
 
             ResetJudgeLamp();
             SetCommunicationLamp(false);
             SetAutoManualLamp(false);
             InitPlot();
+            UpdateQtyLabel();
 
             // XGT 통신 완성 후:
-            // plcConnected = plc.Connect(...);
-            // if (plcConnected)
-            //     plcTimer.Start();
+            try
+            {
+                plc.Connect("192.168.1.2");
+                plcConnected = plc.IsConnected;
+
+                SetCommunicationLamp(plcConnected);
+
+                if (plcConnected)
+                {
+                    WriteCurrentModelSettingsToPlc();
+                    ResetJudgeResultToPlc();
+
+                    // 현재 설비 기준
+                    // false = 정상
+                    // true  = 비상정지 눌림
+                    bool emgPressed = plc.ReadBit(ADDR_EMG);
+
+                    // 현재 비상정지 신호 상태 저장
+                    prevEmg = emgPressed;
+
+                    // 프로그램 실행 시 이미 비상정지가 눌려 있으면 1회 표시
+                    if (emgPressed)
+                    {
+                        // 타이머 시작 후 같은 비상정지로 팝업이 또 뜨지 않도록
+                        emgPopupShown = true;
+
+                        EmergencyReset();
+
+                        MessageBox.Show(
+                            "비상정지가 눌려 있습니다.\r\n비상정지를 해제한 후 운전하십시오.",
+                            "비상정지",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        emgPopupShown = false;
+                    }
+
+                    plcTimer.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                plcConnected = false;
+                SetCommunicationLamp(false);
+
+                MessageBox.Show(
+                    "PLC 연결 실패\r\n" + ex.Message,
+                    "통신 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        }
+
+        private void SaveQtySettings()
+        {
+            try
+            {
+                Directory.CreateDirectory(saveFolderPath);
+
+                List<string> lines = new List<string>();
+
+                foreach (var item in modelQty.OrderBy(x => x.Key))
+                {
+                    lines.Add(
+                        item.Key + "," +
+                        item.Value.TotalQty + "," +
+                        item.Value.PassQty + "," +
+                        item.Value.NgQty);
+                }
+
+                File.WriteAllLines(qtySettingFilePath, lines);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "생산량 저장 실패\r\n" + ex.Message,
+                    "저장 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        }
+
+        private void LoadQtySettings()
+        {
+            modelQty.Clear();
+
+            if (!File.Exists(qtySettingFilePath))
+                return;
+
+            try
+            {
+                string[] lines = File.ReadAllLines(qtySettingFilePath);
+
+                foreach (string line in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    string[] p = line.Split(',');
+
+                    if (p.Length < 4)
+                        continue;
+
+                    int modelNo;
+                    int total;
+                    int pass;
+                    int ng;
+
+                    if (!int.TryParse(p[0], out modelNo))
+                        continue;
+
+                    if (!int.TryParse(p[1], out total))
+                        total = 0;
+
+                    if (!int.TryParse(p[2], out pass))
+                        pass = 0;
+
+                    if (!int.TryParse(p[3], out ng))
+                        ng = 0;
+
+                    modelQty[modelNo] = new QtyData
+                    {
+                        TotalQty = total,
+                        PassQty = pass,
+                        NgQty = ng
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "생산량 불러오기 실패\r\n" + ex.Message,
+                    "불러오기 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             plcTimer.Stop();
-            SaveModelSettings();
 
-            // plc.Disconnect();
+            SaveModelSettings();
+            SaveQtySettings();
+
+            if (plc != null)
+                plc.Disconnect();
         }
     }
 }

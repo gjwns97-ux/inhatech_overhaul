@@ -93,8 +93,38 @@ int boxIndex)
                     return anyUse;
                 }
 
+        private void ShowConfiguredPositionValues()
+        {
+            // 압입부 설정 거리
+            if (CurrentConfig.Boxes[0].Use)
+            {
+                txtPtnMin1.Text = CurrentConfig.Boxes[0].PosMin.ToString("0.###");
+                txtPtnMax1.Text = CurrentConfig.Boxes[0].PosMax.ToString("0.###");
+            }
+            else
+            {
+                txtPtnMin1.Text = "";
+                txtPtnMax1.Text = "";
+            }
+
+            // 밀착부 설정 거리
+            if (CurrentConfig.Boxes[1].Use)
+            {
+                txtPtnMin2.Text = CurrentConfig.Boxes[1].PosMin.ToString("0.###");
+                txtPtnMax2.Text = CurrentConfig.Boxes[1].PosMax.ToString("0.###");
+            }
+            else
+            {
+                txtPtnMin2.Text = "";
+                txtPtnMax2.Text = "";
+            }
+        }
+
         private void ShowMeasuredValues()
         {
+
+            ShowConfiguredPositionValues();
+
             // 압입부
             ShowBoxMeasuredValue(
                 CurrentConfig.Boxes[0],
@@ -112,6 +142,19 @@ int boxIndex)
                 txtPtnMax2,
                 txtLoadMin2,
                 txtLoadMax2);
+        }
+
+        private void ClearCycleResultValues()
+        {
+            // 실제 측정 하중값만 초기화
+            txtLoadMin1.Text = "";
+            txtLoadMax1.Text = "";
+
+            txtLoadMin2.Text = "";
+            txtLoadMax2.Text = "";
+
+            // 설정 거리값은 계속 표시
+            ShowConfiguredPositionValues();
         }
 
         // ========================================================
@@ -182,13 +225,14 @@ int boxIndex)
         // 실제 하중값을 계산하여 화면에 표시
         // ========================================================
         private void ShowBoxMeasuredValue(
-    BoxSpec box,
-    int boxIndex,
-    TextBox txtPosMin,
-    TextBox txtPosMax,
-    TextBox txtLoadMin,
-    TextBox txtLoadMax)
+                BoxSpec box,
+                int boxIndex,
+                TextBox txtPosMin,
+                TextBox txtPosMax,
+                TextBox txtLoadMin,
+                TextBox txtLoadMax)
         {
+            // 해당 구간을 사용하지 않는 경우
             if (!box.Use)
             {
                 txtPosMin.Text = "";
@@ -196,106 +240,166 @@ int boxIndex)
                 txtLoadMin.Text = "";
                 txtLoadMax.Text = "";
                 return;
-            }
+            }           
 
             int count = Math.Min(servoX.Count, loadY.Count);
 
             if (count == 0)
             {
-                txtPosMin.Text = "";
-                txtPosMax.Text = "";
                 txtLoadMin.Text = "";
                 txtLoadMax.Text = "";
                 return;
             }
 
-            int minIndex = -1;
-            int maxIndex = -1;
+            // PosMin, PosMax를 반대로 입력해도 정상 동작
+            double rangeMin = Math.Min(box.PosMin, box.PosMax);
+            double rangeMax = Math.Max(box.PosMin, box.PosMax);
 
-            // 설정 위치를 처음 통과한 실제 측정점 찾기
+            bool found = false;
+
+            double minLoad = double.MaxValue;
+            double maxLoad = double.MinValue;
+
             for (int i = 0; i < count; i++)
             {
-                if (minIndex == -1 && servoX[i] >= box.PosMin)
-                    minIndex = i;
+                double position = servoX[i];
+                double load = loadY[i];
 
-                if (maxIndex == -1 && servoX[i] >= box.PosMax)
-                    maxIndex = i;
+                // 압입구간 설정의 거리 Min ~ Max 범위 안에 있는 데이터만 사용
+                if (position < rangeMin || position > rangeMax)
+                    continue;
 
-                if (minIndex != -1 && maxIndex != -1)
-                    break;
+                found = true;
+
+                // 구간 내 최소 하중
+                if (load < minLoad)
+                    minLoad = load;
+
+                // 구간 내 최대 하중
+                if (load > maxLoad)
+                    maxLoad = load;
             }
 
-            // PosMin에 도달하지 못한 경우
-            if (minIndex == -1)
+            // 설정 구간 안에 측정 데이터가 하나도 없는 경우
+            if (!found)
             {
-                txtPosMin.Text = "";
                 txtLoadMin.Text = "";
-            }
-            else
-            {
-                // 실제로 수집된 위치값
-                txtPosMin.Text =
-                    servoX[minIndex].ToString("0.###");
-
-                // 설정된 PosMin 위치에서 보간한 하중값
-                txtLoadMin.Text =
-                    GetLoadAtPosition(
-                        servoX,
-                        loadY,
-                        box.PosMin)
-                    .ToString("0.###");
-            }
-
-            // PosMax에 도달하지 못한 경우
-            if (maxIndex == -1)
-            {
-                txtPosMax.Text = "";
                 txtLoadMax.Text = "";
+                return;
             }
-            else
-            {
-                // 실제로 수집된 위치값
-                txtPosMax.Text =
-                    servoX[maxIndex].ToString("0.###");
 
-                // 설정된 PosMax 위치에서 보간한 하중값
-                txtLoadMax.Text =
-                    GetLoadAtPosition(
-                        servoX,
-                        loadY,
-                        box.PosMax)
-                    .ToString("0.###");
-            }
+            // 설정 거리 구간 안에서 측정된 최소 / 최대 하중 표시
+            txtLoadMin.Text = minLoad.ToString("0.###");
+            txtLoadMax.Text = maxLoad.ToString("0.###");
         }
 
         private void FinishCycleJudge()
-                {
-                    if (cycleJudgeDone) return;
-        
-                    collecting = false;
-                    cycleJudgeDone = true;
-                    lastJudgeOk = CheckFinalPass();
-                    SetJudgeLamp(lastJudgeOk);
-                     // 실제 측정값 표시
-                     ShowMeasuredValues();
+        {
+            if (cycleJudgeDone)
+                return;
 
-            // XGT 통신 완성 후:
-            // plc.WriteWord(ADDR_PC_RESULT, lastJudgeOk ? 0 : 1);
+            collecting = false;
 
+            // 최종 판정
+            lastJudgeOk = CheckFinalPass();
+
+            if (lastJudgeOk)
+                CurrentQty.PassQty++;
+            else
+                CurrentQty.NgQty++;
+
+            UpdateQtyLabel();
+            SaveQtySettings();
+                        
+            cycleJudgeDone = true;
+
+            // 화면 OK/NG 램프 표시
+            SetJudgeLamp(lastJudgeOk);
+
+            // 실제 측정값 표시
+            ShowMeasuredValues();
+
+            // PLC에 OK/NG 결과 전송
+            WriteJudgeResultToPlc(lastJudgeOk);
+
+            // 결과 저장
             SaveCycleData();
-                    DrawPlot();
-                }
+
+            // 최종 그래프 표시
+            DrawPlot();
+        }
+
+        private void EmergencyReset()
+        {
+            // 현재 사이클 정지
+            collecting = false;
+            cycleRunning = false;
+
+            // 비상정지된 사이클은 판정 및 저장 금지
+            cycleJudgeDone = true;
+            emergencyCancelledCycle = true;
+            lastJudgeOk = false;
+
+            // 그래프 데이터 삭제
+            servoX.Clear();
+            loadY.Clear();
+
+            // 판정 램프 초기화
+            ResetJudgeLamp();
+
+            // PC → PLC OK/NG 초기화
+            ResetJudgeResultToPlc();
+
+            // 압입부/밀착부 측정 결과 초기화
+            ClearCycleResultValues();
+
+            // 빈 그래프로 다시 표시
+            DrawPlot();
+        }
+
+        private void AreaSensorReset()
+        {
+            collecting = false;
+            cycleRunning = false;
+
+            cycleJudgeDone = true;
+            emergencyCancelledCycle = true;
+            lastJudgeOk = false;
+
+            servoX.Clear();
+            loadY.Clear();
+
+            ResetJudgeLamp();
+            ResetJudgeResultToPlc();
+
+            ClearCycleResultValues();
+
+            // 서보 위치 리얼값만 초기화
+            // 서보 하중 리얼값과 생산량은 유지
+            txtPosReal.Text = "0";
+
+            DrawPlot();
+        }
+
+        private void ClearMeasuredValues()
+        {
+            txtLoadMin1.Text = "";
+            txtLoadMax1.Text = "";
+
+            txtLoadMin2.Text = "";
+            txtLoadMax2.Text = "";
+
+            ShowConfiguredPositionValues();
+        }
 
         private void ResetCycleState()
         {
             // 이전 사이클 측정값 초기화
-            txtPtnMin1.Text = "";
-            txtPtnMax1.Text = "";
+            
             txtLoadMin1.Text = "";
             txtLoadMax1.Text = "";
 
-            txtPtnMin2.Text = "";
-            txtPtnMax2.Text = "";
+           
             txtLoadMin2.Text = "";
             txtLoadMax2.Text = "";
 
@@ -303,32 +407,23 @@ int boxIndex)
             loadY.Clear();
 
             collecting = false;
+            cycleRunning = false;
             cycleJudgeDone = false;
             lastJudgeOk = false;
-            prevCycleStart = false;
 
-            txtLoadReal.Text = "0.0";
-            txtPosReal.Text = "0.0";
+            prevCycleStart = false;
+            prevGraphStart = false;
+
+            txtLoadReal.Text = "000";
+            txtPosReal.Text = "000.00";
 
             ResetJudgeLamp();
-            DrawPlot();
-        }
 
-        // ========================================================
-        // 테스트용 그래프 데이터 추가
-        //
-        // PLC 연결 전 그래프와 판정 기능을 시험할 때 사용
-        //
-        // position : 테스트 거리
-        // load     : 테스트 하중
-        // ========================================================
-        private void AddTestPoint(double position, double load)
-                {
-                    servoX.Add(position);
-                    loadY.Add(load);
-                    txtPosReal.Text = position.ToString("0.000");
-                    txtLoadReal.Text = load.ToString("0.0");
-                    DrawPlot();
-                }
+            // PLC OK/NG 판정 신호 초기화
+            ResetJudgeResultToPlc();
+            ShowConfiguredPositionValues();
+            DrawPlot();
+        }     
+        
     }
 }

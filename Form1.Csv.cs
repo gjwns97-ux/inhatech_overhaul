@@ -65,7 +65,7 @@ namespace 인하테크개조
                             ModelConfig c = CurrentConfig;
         
                             sw.WriteLine(string.Join(",",
-                                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                                 "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                                 Csv(c.ModelName),
                                 Inv(c.HighDistance), Inv(c.LowDistance),
                                 Inv(c.HighSpeed), Inv(c.LowSpeed), Inv(c.LoadSet),

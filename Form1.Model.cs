@@ -40,6 +40,7 @@ namespace 인하테크개조
                 ModelName = "MODEL_" + no,
                 HighDistance = 0,
                 LowDistance = 0,
+                WaitPos = 0,
                 HighSpeed = 0,
                 LowSpeed = 0,
                 LoadSet = 0,
@@ -121,7 +122,8 @@ namespace 인하테크개조
             ResetCycleState();
             InitPlot();
 
-            // WriteCurrentModelSettingsToPlc();
+             WriteCurrentModelSettingsToPlc();
+            UpdateQtyLabel();
         }
 
         // ========================================================
@@ -136,13 +138,14 @@ namespace 인하테크개조
             txtHS.Text = c.HighSpeed.ToString("0.###");
             txtLS.Text = c.LowSpeed.ToString("0.###");
             txtLoadSet.Text = c.LoadSet.ToString("0.###");
+            txtWaitPos.Text = c.WaitPos.ToString("0.###");
 
             lblHSD.Text = txtHSD.Text;
             lblLSD.Text = txtLSD.Text;
             lblHS.Text = txtHS.Text;
             lblLS.Text = txtLS.Text;
             lblLoadSet.Text = txtLoadSet.Text;
-
+            lblWaitPos.Text = txtWaitPos.Text;
         }
 
         // ========================================================
@@ -155,12 +158,14 @@ namespace 인하테크개조
         {
             double hsd;
             double lsd;
+            double waitPos;
             double hs;
             double ls;
             double loadSet;
 
             if (!TryGetDouble(txtHSD, "고속 이송거리", out hsd) ||
                 !TryGetDouble(txtLSD, "압입 이송거리", out lsd) ||
+                !TryGetDouble(txtWaitPos, "대기위치", out waitPos) ||
                 !TryGetDouble(txtHS, "고속 속도", out hs) ||
                 !TryGetDouble(txtLS, "압입 속도", out ls) ||
                 !TryGetDouble(txtLoadSet, "압입 하중", out loadSet))
@@ -170,7 +175,7 @@ namespace 인하테크개조
                 return;
             }
 
-            if (hsd < 0 || lsd < 0 || hs < 0 || ls < 0 || loadSet < 0)
+            if (hsd < 0 || lsd < 0 || waitPos < 0 || hs < 0 || ls < 0 || loadSet < 0)
             {
                 MessageBox.Show("거리, 속도, 하중은 0 이상으로 입력하세요.");
                 return;
@@ -179,6 +184,7 @@ namespace 인하테크개조
             ModelConfig c = CurrentConfig;
             c.HighDistance = hsd;
             c.LowDistance = lsd;
+            c.WaitPos = waitPos;
             c.HighSpeed = hs;
             c.LowSpeed = ls;
             c.LoadSet = loadSet;
@@ -189,10 +195,10 @@ namespace 인하테크개조
             lblHS.Text = c.HighSpeed.ToString("0.###");
             lblLS.Text = c.LowSpeed.ToString("0.###");
             lblLoadSet.Text = c.LoadSet.ToString("0.###");
-
+            lblWaitPos.Text = c.WaitPos.ToString("0.###");
             SaveModelSettings();
 
-            // WriteCurrentModelSettingsToPlc();
+             WriteCurrentModelSettingsToPlc();
 
             await ShowAutoCloseMessageAsync("저장 완료", 1200);
         }
@@ -243,14 +249,15 @@ namespace 인하테크개조
                     foreach (ModelConfig c in modelConfigs.Values.OrderBy(x => x.ModelNo))
                     {
                         sw.WriteLine(string.Join(",",
-                            "MODEL",
-                            c.ModelNo,
-                            Escape(c.ModelName),
-                            Inv(c.HighDistance),
-                            Inv(c.LowDistance),
-                            Inv(c.HighSpeed),
-                            Inv(c.LowSpeed),
-                            Inv(c.LoadSet)));
+                        "MODEL",
+                        c.ModelNo,
+                        Escape(c.ModelName),
+                        Inv(c.HighDistance),
+                        Inv(c.LowDistance),
+                        Inv(c.WaitPos),      // 추가
+                        Inv(c.HighSpeed),
+                        Inv(c.LowSpeed),
+                        Inv(c.LoadSet)));
 
                         for (int i = 0; i < 2; i++)
                         {
@@ -300,7 +307,7 @@ namespace 인하테크개조
                     if (p.Length == 0)
                         continue;
 
-                    if (p[0] == "MODEL" && p.Length >= 8)
+                    if (p[0] == "MODEL" && p.Length >= 9)
                     {
                         int no;
 
@@ -327,9 +334,10 @@ namespace 인하테크개조
                         c.ModelName = Unescape(p[2]);
                         c.HighDistance = ParseInv(p[3]);
                         c.LowDistance = ParseInv(p[4]);
-                        c.HighSpeed = ParseInv(p[5]);
-                        c.LowSpeed = ParseInv(p[6]);
-                        c.LoadSet = ParseInv(p[7]);
+                        c.WaitPos = ParseInv(p[5]);       
+                        c.HighSpeed = ParseInv(p[6]);
+                        c.LowSpeed = ParseInv(p[7]);
+                        c.LoadSet = ParseInv(p[8]);
                     }
                     else if (p[0] == "BOX" && p.Length >= 8)
                     {
