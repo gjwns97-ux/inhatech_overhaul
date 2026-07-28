@@ -142,8 +142,12 @@ namespace 인하테크개조
 
             lblHSD.Text = txtHSD.Text;
             lblLSD.Text = txtLSD.Text;
-            lblHS.Text = txtHS.Text;
-            lblLS.Text = txtLS.Text;
+
+            // 화면 표시만 스케일 변환
+            lblHS.Text = (c.HighSpeed / 10.0).ToString("0.0");
+            lblLS.Text = (c.LowSpeed / 100.0).ToString("0.00");
+            
+
             lblLoadSet.Text = txtLoadSet.Text;
             lblWaitPos.Text = txtWaitPos.Text;
         }
@@ -175,9 +179,10 @@ namespace 인하테크개조
                 return;
             }
 
-            if (hsd < 0 || lsd < 0 || waitPos < 0 || hs < 0 || ls < 0 || loadSet < 0)
+            //if (hsd < 0 || lsd < 0 || waitPos < 0 || hs < 0 || ls < 0 || loadSet < 0) 이건 전부 음수 사용 x
+            if (hs < 0 || ls < 0 || loadSet < 0) // 이건 고속속도, 압입속도, 압입하중만 음수 사용 x
             {
-                MessageBox.Show("거리, 속도, 하중은 0 이상으로 입력하세요.");
+                MessageBox.Show("고속속도, 압입속도, 압입하중은 0 이상으로 입력하세요.");
                 return;
             }
 
@@ -192,8 +197,11 @@ namespace 인하테크개조
             // 저장된 현재 모델값을 메인 화면 라벨에 표시
             lblHSD.Text = c.HighDistance.ToString("0.###");
             lblLSD.Text = c.LowDistance.ToString("0.###");
-            lblHS.Text = c.HighSpeed.ToString("0.###");
-            lblLS.Text = c.LowSpeed.ToString("0.###");
+
+            // 화면 표시만 변환
+            lblHS.Text = (c.HighSpeed / 10.0).ToString("0.0");
+            lblLS.Text = (c.LowSpeed / 100.0).ToString("0.00");
+
             lblLoadSet.Text = c.LoadSet.ToString("0.###");
             lblWaitPos.Text = c.WaitPos.ToString("0.###");
             SaveModelSettings();

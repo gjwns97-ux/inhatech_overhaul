@@ -414,8 +414,8 @@ int boxIndex)
             prevCycleStart = false;
             prevGraphStart = false;
 
-            txtLoadReal.Text = "000";
-            txtPosReal.Text = "000.00";
+            txtLoadReal.Text = "0";
+            txtPosReal.Text = "0";
 
             ResetJudgeLamp();
 

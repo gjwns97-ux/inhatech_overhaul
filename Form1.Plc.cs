@@ -124,6 +124,7 @@ namespace 인하테크개조
         }
 
         private void UpdateRealtimePlcValues(
+
             double pos,
             double load,
             bool autoMode,
@@ -142,8 +143,13 @@ namespace 인하테크개조
             SetAutoManualLamp(autoMode);
 
             // 실시간 값 표시
-            txtPosReal.Text = pos == 0 ? "0" : pos.ToString("0.00");
-            txtLoadReal.Text = load == 0 ? "0" : load.ToString("0");
+            txtPosReal.Text = pos == 0
+                 ? "0"
+                 : pos.ToString("0.00");
+
+            txtLoadReal.Text = load == 0
+                ? "0"
+                : load.ToString("000");
 
             // PLC D110 값을 총생산량으로 표시
 

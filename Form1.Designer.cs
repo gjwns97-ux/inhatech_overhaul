@@ -106,8 +106,6 @@
             this.btnNqtyR = new System.Windows.Forms.Button();
             this.panel47 = new System.Windows.Forms.Panel();
             this.btnPqtyR = new System.Windows.Forms.Button();
-            this.panel45 = new System.Windows.Forms.Panel();
-            this.panel44 = new System.Windows.Forms.Panel();
             this.panel43 = new System.Windows.Forms.Panel();
             this.lblNqty = new System.Windows.Forms.Label();
             this.panel42 = new System.Windows.Forms.Panel();
@@ -929,7 +927,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(185, 22);
             this.label14.TabIndex = 13;
-            this.label14.Text = "고속 속도 [rpm]";
+            this.label14.Text = "고속 속도 [mm/sec]";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
@@ -940,7 +938,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(185, 22);
             this.label15.TabIndex = 12;
-            this.label15.Text = "압입 속도 [rpm]";
+            this.label15.Text = "압입 속도 [mm/sec]";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label24
@@ -1075,8 +1073,7 @@
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.tableLayoutPanel3);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel9.Location = new System.Drawing.Point(5, 628);
+            this.panel9.Location = new System.Drawing.Point(5, 653);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(3);
             this.panel9.Size = new System.Drawing.Size(505, 264);
@@ -1090,8 +1087,6 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.Controls.Add(this.panel48, 2, 2);
             this.tableLayoutPanel3.Controls.Add(this.panel47, 2, 1);
-            this.tableLayoutPanel3.Controls.Add(this.panel45, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.panel44, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.panel43, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.panel42, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.panel41, 1, 1);
@@ -1103,11 +1098,11 @@
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel3.RowCount = 4;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.31579F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.31579F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.31579F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05263F));
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(497, 256);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
@@ -1115,10 +1110,10 @@
             // 
             this.panel48.Controls.Add(this.btnNqtyR);
             this.panel48.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel48.Location = new System.Drawing.Point(398, 136);
+            this.panel48.Location = new System.Drawing.Point(398, 172);
             this.panel48.Name = "panel48";
             this.panel48.Padding = new System.Windows.Forms.Padding(3);
-            this.panel48.Size = new System.Drawing.Size(93, 59);
+            this.panel48.Size = new System.Drawing.Size(93, 78);
             this.panel48.TabIndex = 10;
             // 
             // btnNqtyR
@@ -1128,7 +1123,7 @@
             this.btnNqtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnNqtyR.Location = new System.Drawing.Point(3, 3);
             this.btnNqtyR.Name = "btnNqtyR";
-            this.btnNqtyR.Size = new System.Drawing.Size(87, 53);
+            this.btnNqtyR.Size = new System.Drawing.Size(87, 72);
             this.btnNqtyR.TabIndex = 4;
             this.btnNqtyR.Text = "RESET";
             this.btnNqtyR.UseVisualStyleBackColor = false;
@@ -1138,10 +1133,10 @@
             // 
             this.panel47.Controls.Add(this.btnPqtyR);
             this.panel47.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel47.Location = new System.Drawing.Point(398, 71);
+            this.panel47.Location = new System.Drawing.Point(398, 89);
             this.panel47.Name = "panel47";
             this.panel47.Padding = new System.Windows.Forms.Padding(3);
-            this.panel47.Size = new System.Drawing.Size(93, 59);
+            this.panel47.Size = new System.Drawing.Size(93, 77);
             this.panel47.TabIndex = 9;
             // 
             // btnPqtyR
@@ -1151,38 +1146,20 @@
             this.btnPqtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnPqtyR.Location = new System.Drawing.Point(3, 3);
             this.btnPqtyR.Name = "btnPqtyR";
-            this.btnPqtyR.Size = new System.Drawing.Size(87, 53);
+            this.btnPqtyR.Size = new System.Drawing.Size(87, 71);
             this.btnPqtyR.TabIndex = 4;
             this.btnPqtyR.Text = "RESET";
             this.btnPqtyR.UseVisualStyleBackColor = false;
             this.btnPqtyR.Click += new System.EventHandler(this.btnPqtyR_Click);
             // 
-            // panel45
-            // 
-            this.panel45.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel45.Location = new System.Drawing.Point(153, 201);
-            this.panel45.Name = "panel45";
-            this.panel45.Padding = new System.Windows.Forms.Padding(3);
-            this.panel45.Size = new System.Drawing.Size(239, 49);
-            this.panel45.TabIndex = 7;
-            // 
-            // panel44
-            // 
-            this.panel44.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel44.Location = new System.Drawing.Point(6, 201);
-            this.panel44.Name = "panel44";
-            this.panel44.Padding = new System.Windows.Forms.Padding(3);
-            this.panel44.Size = new System.Drawing.Size(141, 49);
-            this.panel44.TabIndex = 6;
-            // 
             // panel43
             // 
             this.panel43.Controls.Add(this.lblNqty);
             this.panel43.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel43.Location = new System.Drawing.Point(153, 136);
+            this.panel43.Location = new System.Drawing.Point(153, 172);
             this.panel43.Name = "panel43";
             this.panel43.Padding = new System.Windows.Forms.Padding(3);
-            this.panel43.Size = new System.Drawing.Size(239, 59);
+            this.panel43.Size = new System.Drawing.Size(239, 78);
             this.panel43.TabIndex = 5;
             // 
             // lblNqty
@@ -1192,7 +1169,7 @@
             this.lblNqty.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblNqty.Location = new System.Drawing.Point(3, 3);
             this.lblNqty.Name = "lblNqty";
-            this.lblNqty.Size = new System.Drawing.Size(233, 53);
+            this.lblNqty.Size = new System.Drawing.Size(233, 72);
             this.lblNqty.TabIndex = 2;
             this.lblNqty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1200,10 +1177,10 @@
             // 
             this.panel42.Controls.Add(this.label18);
             this.panel42.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel42.Location = new System.Drawing.Point(6, 136);
+            this.panel42.Location = new System.Drawing.Point(6, 172);
             this.panel42.Name = "panel42";
             this.panel42.Padding = new System.Windows.Forms.Padding(3);
-            this.panel42.Size = new System.Drawing.Size(141, 59);
+            this.panel42.Size = new System.Drawing.Size(141, 78);
             this.panel42.TabIndex = 4;
             // 
             // label18
@@ -1214,7 +1191,7 @@
             this.label18.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label18.Location = new System.Drawing.Point(3, 3);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(135, 53);
+            this.label18.Size = new System.Drawing.Size(135, 72);
             this.label18.TabIndex = 1;
             this.label18.Text = "불량 발생량";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1223,10 +1200,10 @@
             // 
             this.panel41.Controls.Add(this.lblPqty);
             this.panel41.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel41.Location = new System.Drawing.Point(153, 71);
+            this.panel41.Location = new System.Drawing.Point(153, 89);
             this.panel41.Name = "panel41";
             this.panel41.Padding = new System.Windows.Forms.Padding(3);
-            this.panel41.Size = new System.Drawing.Size(239, 59);
+            this.panel41.Size = new System.Drawing.Size(239, 77);
             this.panel41.TabIndex = 3;
             // 
             // lblPqty
@@ -1236,7 +1213,7 @@
             this.lblPqty.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblPqty.Location = new System.Drawing.Point(3, 3);
             this.lblPqty.Name = "lblPqty";
-            this.lblPqty.Size = new System.Drawing.Size(233, 53);
+            this.lblPqty.Size = new System.Drawing.Size(233, 71);
             this.lblPqty.TabIndex = 2;
             this.lblPqty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1244,10 +1221,10 @@
             // 
             this.panel40.Controls.Add(this.label17);
             this.panel40.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel40.Location = new System.Drawing.Point(6, 71);
+            this.panel40.Location = new System.Drawing.Point(6, 89);
             this.panel40.Name = "panel40";
             this.panel40.Padding = new System.Windows.Forms.Padding(3);
-            this.panel40.Size = new System.Drawing.Size(141, 59);
+            this.panel40.Size = new System.Drawing.Size(141, 77);
             this.panel40.TabIndex = 2;
             // 
             // label17
@@ -1258,7 +1235,7 @@
             this.label17.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label17.Location = new System.Drawing.Point(3, 3);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(135, 53);
+            this.label17.Size = new System.Drawing.Size(135, 71);
             this.label17.TabIndex = 1;
             this.label17.Text = "양품 생산량";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1270,7 +1247,7 @@
             this.panel39.Location = new System.Drawing.Point(153, 6);
             this.panel39.Name = "panel39";
             this.panel39.Padding = new System.Windows.Forms.Padding(3);
-            this.panel39.Size = new System.Drawing.Size(239, 59);
+            this.panel39.Size = new System.Drawing.Size(239, 77);
             this.panel39.TabIndex = 1;
             // 
             // lblQty
@@ -1280,7 +1257,7 @@
             this.lblQty.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblQty.Location = new System.Drawing.Point(3, 3);
             this.lblQty.Name = "lblQty";
-            this.lblQty.Size = new System.Drawing.Size(233, 53);
+            this.lblQty.Size = new System.Drawing.Size(233, 71);
             this.lblQty.TabIndex = 1;
             this.lblQty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1291,7 +1268,7 @@
             this.panel10.Location = new System.Drawing.Point(6, 6);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(3);
-            this.panel10.Size = new System.Drawing.Size(141, 59);
+            this.panel10.Size = new System.Drawing.Size(141, 77);
             this.panel10.TabIndex = 0;
             // 
             // label16
@@ -1302,7 +1279,7 @@
             this.label16.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label16.Location = new System.Drawing.Point(3, 3);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(135, 53);
+            this.label16.Size = new System.Drawing.Size(135, 71);
             this.label16.TabIndex = 0;
             this.label16.Text = "총 생산량";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1314,7 +1291,7 @@
             this.panel46.Location = new System.Drawing.Point(398, 6);
             this.panel46.Name = "panel46";
             this.panel46.Padding = new System.Windows.Forms.Padding(3);
-            this.panel46.Size = new System.Drawing.Size(93, 59);
+            this.panel46.Size = new System.Drawing.Size(93, 77);
             this.panel46.TabIndex = 8;
             // 
             // btnQtyR
@@ -1324,7 +1301,7 @@
             this.btnQtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnQtyR.Location = new System.Drawing.Point(3, 3);
             this.btnQtyR.Name = "btnQtyR";
-            this.btnQtyR.Size = new System.Drawing.Size(87, 53);
+            this.btnQtyR.Size = new System.Drawing.Size(87, 71);
             this.btnQtyR.TabIndex = 3;
             this.btnQtyR.Text = "RESET";
             this.btnQtyR.UseVisualStyleBackColor = false;
@@ -1334,7 +1311,7 @@
             // panel51
             // 
             this.panel51.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel51.Location = new System.Drawing.Point(5, 625);
+            this.panel51.Location = new System.Drawing.Point(5, 645);
             this.panel51.Name = "panel51";
             this.panel51.Size = new System.Drawing.Size(505, 3);
             this.panel51.TabIndex = 12;
@@ -1345,7 +1322,7 @@
             this.panel38.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel38.Location = new System.Drawing.Point(5, 144);
             this.panel38.Name = "panel38";
-            this.panel38.Size = new System.Drawing.Size(505, 481);
+            this.panel38.Size = new System.Drawing.Size(505, 501);
             this.panel38.TabIndex = 11;
             // 
             // panel12
@@ -1354,10 +1331,11 @@
             this.panel12.Controls.Add(this.panel35);
             this.panel12.Controls.Add(this.panel14);
             this.panel12.Controls.Add(this.label9);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(5);
-            this.panel12.Size = new System.Drawing.Size(505, 478);
+            this.panel12.Size = new System.Drawing.Size(505, 501);
             this.panel12.TabIndex = 8;
             // 
             // panel35
@@ -1366,7 +1344,8 @@
             this.panel35.Controls.Add(this.btnModelEdit);
             this.panel35.Controls.Add(this.btnCheckBoxSet);
             this.panel35.Controls.Add(this.btnSave);
-            this.panel35.Location = new System.Drawing.Point(5, 406);
+            this.panel35.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel35.Location = new System.Drawing.Point(5, 433);
             this.panel35.Name = "panel35";
             this.panel35.Padding = new System.Windows.Forms.Padding(5);
             this.panel35.Size = new System.Drawing.Size(493, 61);
@@ -1428,7 +1407,7 @@
             this.panel14.Location = new System.Drawing.Point(5, 44);
             this.panel14.Name = "panel14";
             this.panel14.Padding = new System.Windows.Forms.Padding(3);
-            this.panel14.Size = new System.Drawing.Size(493, 356);
+            this.panel14.Size = new System.Drawing.Size(493, 388);
             this.panel14.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -1461,26 +1440,26 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28816F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(487, 347);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(487, 379);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
             // panel52
             // 
             this.panel52.Controls.Add(this.txtWaitPos);
             this.panel52.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel52.Location = new System.Drawing.Point(149, 150);
+            this.panel52.Location = new System.Drawing.Point(149, 165);
             this.panel52.Name = "panel52";
             this.panel52.Padding = new System.Windows.Forms.Padding(2);
-            this.panel52.Size = new System.Drawing.Size(335, 43);
+            this.panel52.Size = new System.Drawing.Size(335, 48);
             this.panel52.TabIndex = 17;
             // 
             // txtWaitPos
             // 
             this.txtWaitPos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtWaitPos.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtWaitPos.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtWaitPos.Location = new System.Drawing.Point(2, 2);
             this.txtWaitPos.Name = "txtWaitPos";
-            this.txtWaitPos.Size = new System.Drawing.Size(331, 41);
+            this.txtWaitPos.Size = new System.Drawing.Size(331, 44);
             this.txtWaitPos.TabIndex = 1;
             this.txtWaitPos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1488,10 +1467,10 @@
             // 
             this.panel29.Controls.Add(this.label41);
             this.panel29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel29.Location = new System.Drawing.Point(3, 150);
+            this.panel29.Location = new System.Drawing.Point(3, 165);
             this.panel29.Name = "panel29";
             this.panel29.Padding = new System.Windows.Forms.Padding(2);
-            this.panel29.Size = new System.Drawing.Size(140, 43);
+            this.panel29.Size = new System.Drawing.Size(140, 48);
             this.panel29.TabIndex = 16;
             // 
             // label41
@@ -1500,7 +1479,7 @@
             this.label41.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label41.Location = new System.Drawing.Point(2, 2);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(136, 39);
+            this.label41.Size = new System.Drawing.Size(136, 44);
             this.label41.TabIndex = 2;
             this.label41.Text = "대기 위치 [mm]";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1509,10 +1488,10 @@
             // 
             this.panel31.Controls.Add(this.label39);
             this.panel31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel31.Location = new System.Drawing.Point(3, 199);
+            this.panel31.Location = new System.Drawing.Point(3, 219);
             this.panel31.Name = "panel31";
             this.panel31.Padding = new System.Windows.Forms.Padding(2);
-            this.panel31.Size = new System.Drawing.Size(140, 43);
+            this.panel31.Size = new System.Drawing.Size(140, 48);
             this.panel31.TabIndex = 15;
             // 
             // label39
@@ -1521,19 +1500,19 @@
             this.label39.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label39.Location = new System.Drawing.Point(2, 2);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(136, 39);
+            this.label39.Size = new System.Drawing.Size(136, 44);
             this.label39.TabIndex = 2;
-            this.label39.Text = "고속 속도 [rpm]";
+            this.label39.Text = "고속 속도 [mm/sec]";
             this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel33
             // 
             this.panel33.Controls.Add(this.label38);
             this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel33.Location = new System.Drawing.Point(3, 248);
+            this.panel33.Location = new System.Drawing.Point(3, 273);
             this.panel33.Name = "panel33";
             this.panel33.Padding = new System.Windows.Forms.Padding(2);
-            this.panel33.Size = new System.Drawing.Size(140, 43);
+            this.panel33.Size = new System.Drawing.Size(140, 48);
             this.panel33.TabIndex = 14;
             // 
             // label38
@@ -1542,19 +1521,19 @@
             this.label38.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label38.Location = new System.Drawing.Point(2, 2);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(136, 39);
+            this.label38.Size = new System.Drawing.Size(136, 44);
             this.label38.TabIndex = 2;
-            this.label38.Text = "압입 속도 [rpm]";
+            this.label38.Text = "압입 속도 [mm/sec]";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel11
             // 
             this.panel11.Controls.Add(this.label36);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(3, 297);
+            this.panel11.Location = new System.Drawing.Point(3, 327);
             this.panel11.Name = "panel11";
             this.panel11.Padding = new System.Windows.Forms.Padding(2);
-            this.panel11.Size = new System.Drawing.Size(140, 47);
+            this.panel11.Size = new System.Drawing.Size(140, 49);
             this.panel11.TabIndex = 13;
             // 
             // label36
@@ -1563,7 +1542,7 @@
             this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label36.Location = new System.Drawing.Point(2, 2);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(136, 43);
+            this.label36.Size = new System.Drawing.Size(136, 45);
             this.label36.TabIndex = 2;
             this.label36.Text = "압입 하중 [kgf]";
             this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1572,19 +1551,19 @@
             // 
             this.panel34.Controls.Add(this.txtLS);
             this.panel34.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel34.Location = new System.Drawing.Point(149, 248);
+            this.panel34.Location = new System.Drawing.Point(149, 273);
             this.panel34.Name = "panel34";
             this.panel34.Padding = new System.Windows.Forms.Padding(2);
-            this.panel34.Size = new System.Drawing.Size(335, 43);
+            this.panel34.Size = new System.Drawing.Size(335, 48);
             this.panel34.TabIndex = 12;
             // 
             // txtLS
             // 
             this.txtLS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLS.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLS.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtLS.Location = new System.Drawing.Point(2, 2);
             this.txtLS.Name = "txtLS";
-            this.txtLS.Size = new System.Drawing.Size(331, 41);
+            this.txtLS.Size = new System.Drawing.Size(331, 44);
             this.txtLS.TabIndex = 1;
             this.txtLS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1592,19 +1571,19 @@
             // 
             this.panel27.Controls.Add(this.txtLSD);
             this.panel27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel27.Location = new System.Drawing.Point(149, 101);
+            this.panel27.Location = new System.Drawing.Point(149, 111);
             this.panel27.Name = "panel27";
             this.panel27.Padding = new System.Windows.Forms.Padding(2);
-            this.panel27.Size = new System.Drawing.Size(335, 43);
+            this.panel27.Size = new System.Drawing.Size(335, 48);
             this.panel27.TabIndex = 6;
             // 
             // txtLSD
             // 
             this.txtLSD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLSD.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLSD.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtLSD.Location = new System.Drawing.Point(2, 2);
             this.txtLSD.Name = "txtLSD";
-            this.txtLSD.Size = new System.Drawing.Size(331, 41);
+            this.txtLSD.Size = new System.Drawing.Size(331, 44);
             this.txtLSD.TabIndex = 1;
             this.txtLSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1612,10 +1591,10 @@
             // 
             this.panel26.Controls.Add(this.label43);
             this.panel26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel26.Location = new System.Drawing.Point(3, 101);
+            this.panel26.Location = new System.Drawing.Point(3, 111);
             this.panel26.Name = "panel26";
             this.panel26.Padding = new System.Windows.Forms.Padding(2);
-            this.panel26.Size = new System.Drawing.Size(140, 43);
+            this.panel26.Size = new System.Drawing.Size(140, 48);
             this.panel26.TabIndex = 5;
             // 
             // label43
@@ -1624,7 +1603,7 @@
             this.label43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label43.Location = new System.Drawing.Point(2, 2);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(136, 39);
+            this.label43.Size = new System.Drawing.Size(136, 44);
             this.label43.TabIndex = 2;
             this.label43.Text = "압입 종료위치 [mm]";
             this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1633,19 +1612,19 @@
             // 
             this.panel23.Controls.Add(this.txtHSD);
             this.panel23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel23.Location = new System.Drawing.Point(149, 52);
+            this.panel23.Location = new System.Drawing.Point(149, 57);
             this.panel23.Name = "panel23";
             this.panel23.Padding = new System.Windows.Forms.Padding(2);
-            this.panel23.Size = new System.Drawing.Size(335, 43);
+            this.panel23.Size = new System.Drawing.Size(335, 48);
             this.panel23.TabIndex = 4;
             // 
             // txtHSD
             // 
             this.txtHSD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtHSD.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtHSD.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtHSD.Location = new System.Drawing.Point(2, 2);
             this.txtHSD.Name = "txtHSD";
-            this.txtHSD.Size = new System.Drawing.Size(331, 41);
+            this.txtHSD.Size = new System.Drawing.Size(331, 44);
             this.txtHSD.TabIndex = 0;
             this.txtHSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1656,18 +1635,18 @@
             this.panel20.Location = new System.Drawing.Point(149, 3);
             this.panel20.Name = "panel20";
             this.panel20.Padding = new System.Windows.Forms.Padding(2);
-            this.panel20.Size = new System.Drawing.Size(335, 43);
+            this.panel20.Size = new System.Drawing.Size(335, 48);
             this.panel20.TabIndex = 3;
             // 
             // txtModelSelcet
             // 
             this.txtModelSelcet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtModelSelcet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txtModelSelcet.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtModelSelcet.Font = new System.Drawing.Font("굴림", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtModelSelcet.FormattingEnabled = true;
             this.txtModelSelcet.Location = new System.Drawing.Point(2, 2);
             this.txtModelSelcet.Name = "txtModelSelcet";
-            this.txtModelSelcet.Size = new System.Drawing.Size(331, 37);
+            this.txtModelSelcet.Size = new System.Drawing.Size(331, 43);
             this.txtModelSelcet.TabIndex = 7;
             // 
             // panel18
@@ -1677,7 +1656,7 @@
             this.panel18.Location = new System.Drawing.Point(3, 3);
             this.panel18.Name = "panel18";
             this.panel18.Padding = new System.Windows.Forms.Padding(2);
-            this.panel18.Size = new System.Drawing.Size(140, 43);
+            this.panel18.Size = new System.Drawing.Size(140, 48);
             this.panel18.TabIndex = 0;
             // 
             // label7
@@ -1686,7 +1665,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(2, 2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(136, 39);
+            this.label7.Size = new System.Drawing.Size(136, 44);
             this.label7.TabIndex = 1;
             this.label7.Text = "모델 선택";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1695,10 +1674,10 @@
             // 
             this.panel22.Controls.Add(this.label8);
             this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel22.Location = new System.Drawing.Point(3, 52);
+            this.panel22.Location = new System.Drawing.Point(3, 57);
             this.panel22.Name = "panel22";
             this.panel22.Padding = new System.Windows.Forms.Padding(2);
-            this.panel22.Size = new System.Drawing.Size(140, 43);
+            this.panel22.Size = new System.Drawing.Size(140, 48);
             this.panel22.TabIndex = 2;
             // 
             // label8
@@ -1707,7 +1686,7 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Location = new System.Drawing.Point(2, 2);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(136, 39);
+            this.label8.Size = new System.Drawing.Size(136, 44);
             this.label8.TabIndex = 2;
             this.label8.Text = "고속 하강위치 [mm]";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1716,19 +1695,19 @@
             // 
             this.panel32.Controls.Add(this.txtLoadSet);
             this.panel32.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel32.Location = new System.Drawing.Point(149, 297);
+            this.panel32.Location = new System.Drawing.Point(149, 327);
             this.panel32.Name = "panel32";
             this.panel32.Padding = new System.Windows.Forms.Padding(2);
-            this.panel32.Size = new System.Drawing.Size(335, 47);
+            this.panel32.Size = new System.Drawing.Size(335, 49);
             this.panel32.TabIndex = 10;
             // 
             // txtLoadSet
             // 
             this.txtLoadSet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLoadSet.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLoadSet.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtLoadSet.Location = new System.Drawing.Point(2, 2);
             this.txtLoadSet.Name = "txtLoadSet";
-            this.txtLoadSet.Size = new System.Drawing.Size(331, 41);
+            this.txtLoadSet.Size = new System.Drawing.Size(331, 44);
             this.txtLoadSet.TabIndex = 1;
             this.txtLoadSet.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1736,19 +1715,19 @@
             // 
             this.panel30.Controls.Add(this.txtHS);
             this.panel30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel30.Location = new System.Drawing.Point(149, 199);
+            this.panel30.Location = new System.Drawing.Point(149, 219);
             this.panel30.Name = "panel30";
             this.panel30.Padding = new System.Windows.Forms.Padding(2);
-            this.panel30.Size = new System.Drawing.Size(335, 43);
+            this.panel30.Size = new System.Drawing.Size(335, 48);
             this.panel30.TabIndex = 8;
             // 
             // txtHS
             // 
             this.txtHS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtHS.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtHS.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txtHS.Location = new System.Drawing.Point(2, 2);
             this.txtHS.Name = "txtHS";
-            this.txtHS.Size = new System.Drawing.Size(331, 41);
+            this.txtHS.Size = new System.Drawing.Size(331, 44);
             this.txtHS.TabIndex = 1;
             this.txtHS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1812,7 +1791,7 @@
             // 
             this.lblCurrentModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblCurrentModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCurrentModel.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblCurrentModel.Font = new System.Drawing.Font("맑은 고딕", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblCurrentModel.Location = new System.Drawing.Point(2, 27);
             this.lblCurrentModel.Name = "lblCurrentModel";
             this.lblCurrentModel.Size = new System.Drawing.Size(146, 97);
@@ -2106,8 +2085,6 @@
         private System.Windows.Forms.Panel panel19;
         private System.Windows.Forms.Panel panel37;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel45;
-        private System.Windows.Forms.Panel panel44;
         private System.Windows.Forms.Panel panel43;
         private System.Windows.Forms.Panel panel42;
         private System.Windows.Forms.Label label18;
