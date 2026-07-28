@@ -104,6 +104,7 @@ namespace 인하테크개조
                 emgActive,
                 areaSensorActive);
 
+
             }
             catch (Exception)
             {
@@ -149,7 +150,10 @@ namespace 인하테크개조
 
             txtLoadReal.Text = load == 0
                 ? "0"
-                : load.ToString("000");
+                : load.ToString("0");
+
+            this.Text = $"graph={graphStart}, collecting={collecting}, X={servoX.Count}";
+
 
             // PLC D110 값을 총생산량으로 표시
 
@@ -227,6 +231,8 @@ namespace 인하테크개조
             // ========================================================
             if (collecting && graphStart)
             {
+                
+
                 double graphPos = pos;
 
                 // 위치값이 조금 역행할 때 그래프가 뒤로 꺾이지 않도록 보정

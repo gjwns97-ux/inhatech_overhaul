@@ -172,6 +172,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lblResponseOff = new System.Windows.Forms.Label();
             this.lblResponseOn = new System.Windows.Forms.Label();
+            this.btnAxisSet = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -1340,6 +1341,7 @@
             // 
             // panel35
             // 
+            this.panel35.Controls.Add(this.btnAxisSet);
             this.panel35.Controls.Add(this.btnOpenFile);
             this.panel35.Controls.Add(this.btnModelEdit);
             this.panel35.Controls.Add(this.btnCheckBoxSet);
@@ -1355,10 +1357,10 @@
             // 
             this.btnOpenFile.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnOpenFile.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnOpenFile.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnOpenFile.Location = new System.Drawing.Point(365, 5);
+            this.btnOpenFile.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnOpenFile.Location = new System.Drawing.Point(296, 5);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(120, 51);
+            this.btnOpenFile.Size = new System.Drawing.Size(97, 51);
             this.btnOpenFile.TabIndex = 5;
             this.btnOpenFile.Text = "데이터 파일";
             this.btnOpenFile.UseVisualStyleBackColor = false;
@@ -1368,9 +1370,9 @@
             this.btnModelEdit.BackColor = System.Drawing.Color.Beige;
             this.btnModelEdit.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnModelEdit.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnModelEdit.Location = new System.Drawing.Point(245, 5);
+            this.btnModelEdit.Location = new System.Drawing.Point(199, 5);
             this.btnModelEdit.Name = "btnModelEdit";
-            this.btnModelEdit.Size = new System.Drawing.Size(120, 51);
+            this.btnModelEdit.Size = new System.Drawing.Size(97, 51);
             this.btnModelEdit.TabIndex = 10;
             this.btnModelEdit.Text = "모델 편집";
             this.btnModelEdit.UseVisualStyleBackColor = false;
@@ -1381,9 +1383,9 @@
             this.btnCheckBoxSet.BackColor = System.Drawing.Color.PowderBlue;
             this.btnCheckBoxSet.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnCheckBoxSet.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnCheckBoxSet.Location = new System.Drawing.Point(125, 5);
+            this.btnCheckBoxSet.Location = new System.Drawing.Point(102, 5);
             this.btnCheckBoxSet.Name = "btnCheckBoxSet";
-            this.btnCheckBoxSet.Size = new System.Drawing.Size(120, 51);
+            this.btnCheckBoxSet.Size = new System.Drawing.Size(97, 51);
             this.btnCheckBoxSet.TabIndex = 6;
             this.btnCheckBoxSet.Text = "압입 구간 설정";
             this.btnCheckBoxSet.UseVisualStyleBackColor = false;
@@ -1395,7 +1397,7 @@
             this.btnSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnSave.Location = new System.Drawing.Point(5, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(120, 51);
+            this.btnSave.Size = new System.Drawing.Size(97, 51);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "저장";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -1902,6 +1904,18 @@
             this.lblResponseOn.Text = "ON";
             this.lblResponseOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnAxisSet
+            // 
+            this.btnAxisSet.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnAxisSet.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAxisSet.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnAxisSet.Location = new System.Drawing.Point(393, 5);
+            this.btnAxisSet.Name = "btnAxisSet";
+            this.btnAxisSet.Size = new System.Drawing.Size(97, 51);
+            this.btnAxisSet.TabIndex = 11;
+            this.btnAxisSet.Text = "축 범위 설정";
+            this.btnAxisSet.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -2126,6 +2140,7 @@
         private System.Windows.Forms.TextBox txtWaitPos;
         private System.Windows.Forms.Panel panel29;
         private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Button btnAxisSet;
     }
 }
 
