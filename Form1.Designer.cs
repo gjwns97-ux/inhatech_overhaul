@@ -124,6 +124,7 @@
             this.panel38 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel35 = new System.Windows.Forms.Panel();
+            this.btnAxisSet = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.btnModelEdit = new System.Windows.Forms.Button();
             this.btnCheckBoxSet = new System.Windows.Forms.Button();
@@ -172,7 +173,6 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lblResponseOff = new System.Windows.Forms.Label();
             this.lblResponseOn = new System.Windows.Forms.Label();
-            this.btnAxisSet = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -1353,6 +1353,18 @@
             this.panel35.Size = new System.Drawing.Size(493, 61);
             this.panel35.TabIndex = 10;
             // 
+            // btnAxisSet
+            // 
+            this.btnAxisSet.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnAxisSet.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAxisSet.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnAxisSet.Location = new System.Drawing.Point(393, 5);
+            this.btnAxisSet.Name = "btnAxisSet";
+            this.btnAxisSet.Size = new System.Drawing.Size(97, 51);
+            this.btnAxisSet.TabIndex = 11;
+            this.btnAxisSet.Text = "축 범위 설정";
+            this.btnAxisSet.UseVisualStyleBackColor = false;
+            // 
             // btnOpenFile
             // 
             this.btnOpenFile.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -1903,18 +1915,6 @@
             this.lblResponseOn.TabIndex = 7;
             this.lblResponseOn.Text = "ON";
             this.lblResponseOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnAxisSet
-            // 
-            this.btnAxisSet.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.btnAxisSet.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnAxisSet.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnAxisSet.Location = new System.Drawing.Point(393, 5);
-            this.btnAxisSet.Name = "btnAxisSet";
-            this.btnAxisSet.Size = new System.Drawing.Size(97, 51);
-            this.btnAxisSet.TabIndex = 11;
-            this.btnAxisSet.Text = "축 범위 설정";
-            this.btnAxisSet.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 

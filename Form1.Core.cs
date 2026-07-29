@@ -117,13 +117,7 @@ namespace 인하테크개조
         private readonly string qtySettingFilePath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             "CycleData",
-            "qty_settings.ini");
-
-        // 그래프 축 설정 저장 파일
-        private readonly string graphAxisSettingFilePath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-            "CycleData",
-            "graph_axis.ini");
+            "qty_settings.ini");        
 
         private sealed class BoxSpec
         {
@@ -153,6 +147,13 @@ namespace 인하테크개조
             public double HighSpeed { get; set; }
             public double LowSpeed { get; set; }
             public double LoadSet { get; set; }
+
+            // 모델별 그래프 축 범위
+            public double GraphXMin { get; set; }
+            public double GraphXMax { get; set; }
+            public double GraphYMin { get; set; }
+            public double GraphYMax { get; set; }
+
             public BoxSpec[] Boxes { get; set; }
         }
 
@@ -252,8 +253,7 @@ namespace 인하테크개조
 
             InitDefaultModels();
             LoadModelSettings();
-            LoadQtySettings();
-            LoadGraphAxisSettings();
+            LoadQtySettings();            
             RefreshModelCombo();
 
             if (txtModelSelcet.Items.Count > 0)
@@ -327,92 +327,7 @@ namespace 인하테크개조
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
-        }
-
-        private void SaveGraphAxisSettings()
-        {
-            try
-            {
-                Directory.CreateDirectory(saveFolderPath);
-
-                string[] lines =
-                {
-            graphXMin.ToString(System.Globalization.CultureInfo.InvariantCulture),
-            graphXMax.ToString(System.Globalization.CultureInfo.InvariantCulture),
-            graphYMin.ToString(System.Globalization.CultureInfo.InvariantCulture),
-            graphYMax.ToString(System.Globalization.CultureInfo.InvariantCulture)
-        };
-
-                File.WriteAllLines(graphAxisSettingFilePath, lines);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "그래프 축 설정 저장 실패\r\n" + ex.Message,
-                    "저장 오류",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-            }
-        }
-
-        private void LoadGraphAxisSettings()
-        {
-            if (!File.Exists(graphAxisSettingFilePath))
-                return;
-
-            try
-            {
-                string[] lines = File.ReadAllLines(graphAxisSettingFilePath);
-
-                if (lines.Length < 4)
-                    return;
-
-                double xMin;
-                double xMax;
-                double yMin;
-                double yMax;
-
-                if (!double.TryParse(
-                        lines[0],
-                        System.Globalization.NumberStyles.Float,
-                        System.Globalization.CultureInfo.InvariantCulture,
-                        out xMin) ||
-                    !double.TryParse(
-                        lines[1],
-                        System.Globalization.NumberStyles.Float,
-                        System.Globalization.CultureInfo.InvariantCulture,
-                        out xMax) ||
-                    !double.TryParse(
-                        lines[2],
-                        System.Globalization.NumberStyles.Float,
-                        System.Globalization.CultureInfo.InvariantCulture,
-                        out yMin) ||
-                    !double.TryParse(
-                        lines[3],
-                        System.Globalization.NumberStyles.Float,
-                        System.Globalization.CultureInfo.InvariantCulture,
-                        out yMax))
-                {
-                    return;
-                }
-
-                if (xMin >= xMax || yMin >= yMax)
-                    return;
-
-                graphXMin = xMin;
-                graphXMax = xMax;
-                graphYMin = yMin;
-                graphYMax = yMax;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "그래프 축 설정 불러오기 실패\r\n" + ex.Message,
-                    "불러오기 오류",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-            }
-        }
+        }       
 
         private void SaveQtySettings()
         {
@@ -504,8 +419,7 @@ namespace 인하테크개조
             plcTimer.Stop();
 
             SaveModelSettings();
-            SaveQtySettings();
-            SaveGraphAxisSettings();
+            SaveQtySettings();            
 
             if (plc != null)
                 plc.Disconnect();

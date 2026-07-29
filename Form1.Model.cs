@@ -44,6 +44,10 @@ namespace 인하테크개조
                 HighSpeed = 0,
                 LowSpeed = 0,
                 LoadSet = 0,
+                GraphXMin = -200,
+                GraphXMax = 200,
+                GraphYMin = 0,
+                GraphYMax = 1000,
                 Boxes = new[]
                 {
             new BoxSpec(true,0,0,0,0),
@@ -117,6 +121,12 @@ namespace 인하테크개조
 
             currentModelNo = cfg.ModelNo;
             lblCurrentModel.Text = cfg.ModelName;
+
+            // 선택한 모델의 그래프 축 범위 적용
+            graphXMin = cfg.GraphXMin;
+            graphXMax = cfg.GraphXMax;
+            graphYMin = cfg.GraphYMin;
+            graphYMax = cfg.GraphYMax;
 
             ShowCurrentModelValues();
             ResetCycleState();
@@ -257,15 +267,21 @@ namespace 인하테크개조
                     foreach (ModelConfig c in modelConfigs.Values.OrderBy(x => x.ModelNo))
                     {
                         sw.WriteLine(string.Join(",",
-                        "MODEL",
-                        c.ModelNo,
-                        Escape(c.ModelName),
-                        Inv(c.HighDistance),
-                        Inv(c.LowDistance),
-                        Inv(c.WaitPos),      // 추가
-                        Inv(c.HighSpeed),
-                        Inv(c.LowSpeed),
-                        Inv(c.LoadSet)));
+                         "MODEL",
+                         c.ModelNo,
+                         Escape(c.ModelName),
+                         Inv(c.HighDistance),
+                         Inv(c.LowDistance),
+                         Inv(c.WaitPos),
+                         Inv(c.HighSpeed),
+                         Inv(c.LowSpeed),
+                         Inv(c.LoadSet),
+
+                         // 모델별 그래프 축 범위
+                         Inv(c.GraphXMin),
+                         Inv(c.GraphXMax),
+                         Inv(c.GraphYMin),
+                         Inv(c.GraphYMax)));
 
                         for (int i = 0; i < 2; i++)
                         {
@@ -329,6 +345,12 @@ namespace 인하테크개조
                             c = new ModelConfig
                             {
                                 ModelNo = no,
+
+                                GraphXMin = -200,
+                                GraphXMax = 200,
+                                GraphYMin = 0,
+                                GraphYMax = 1000,
+
                                 Boxes = new[]
                                 {
                                     new BoxSpec(true, 0, 0, 0, 0),
@@ -346,6 +368,24 @@ namespace 인하테크개조
                         c.HighSpeed = ParseInv(p[6]);
                         c.LowSpeed = ParseInv(p[7]);
                         c.LoadSet = ParseInv(p[8]);
+
+                        // 축 설정이 저장된 새 형식이면 불러오기
+                        if (p.Length >= 13)
+                        {
+                            c.GraphXMin = ParseInv(p[9]);
+                            c.GraphXMax = ParseInv(p[10]);
+                            c.GraphYMin = ParseInv(p[11]);
+                            c.GraphYMax = ParseInv(p[12]);
+                        }
+                        else
+                        {
+                            // 기존 model_settings.ini에는 축 설정이 없으므로 기본값 사용
+                            c.GraphXMin = -200;
+                            c.GraphXMax = 200;
+                            c.GraphYMin = 0;
+                            c.GraphYMax = 1000;
+                        }
+
                     }
                     else if (p[0] == "BOX" && p.Length >= 8)
                     {

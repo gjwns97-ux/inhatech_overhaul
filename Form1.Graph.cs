@@ -207,12 +207,22 @@ namespace 인하테크개조
                     return;
                 }
 
+                // 현재 그래프에 적용
                 graphXMin = xMin;
                 graphXMax = xMax;
                 graphYMin = yMin;
                 graphYMax = yMax;
 
-                SaveGraphAxisSettings();
+                // 현재 선택된 모델에 축 범위 저장
+                ModelConfig currentConfig = CurrentConfig;
+
+                currentConfig.GraphXMin = xMin;
+                currentConfig.GraphXMax = xMax;
+                currentConfig.GraphYMin = yMin;
+                currentConfig.GraphYMax = yMax;
+
+                // model_settings.ini에 전체 모델 설정 저장
+                SaveModelSettings();
 
                 DrawPlot();
             }
