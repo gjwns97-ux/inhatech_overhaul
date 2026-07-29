@@ -44,6 +44,12 @@ namespace 인하테크개조
         // PLC 총 생산량
         private const string ADDR_TOTAL_QTY = "D110";
 
+        // PLC 양품 생산량 ( 더블워드)
+        private const string ADDR_PASS_QTY = "D120";
+
+        // PLC 불량 발생량 ( 더블워드 )
+        private const string ADDR_NG_QTY = "D124";
+
         // 고속 하강위치
         private const string ADDR_HIGH_DISTANCE = "D1000";
 
@@ -199,6 +205,11 @@ namespace 인하테크개조
 
         private bool emergencyCancelledCycle = false;
 
+        // PLC에서 마지막으로 읽은 생산수량
+        private ushort currentTotalQty;
+        private int currentPassQty;
+        private int currentNgQty;
+
         private ModelConfig CurrentConfig
         {
             get
@@ -252,13 +263,12 @@ namespace 인하테크개조
             Directory.CreateDirectory(saveFolderPath);
 
             InitDefaultModels();
-            LoadModelSettings();
-            LoadQtySettings();            
+            LoadModelSettings();                       
             RefreshModelCombo();
 
             if (txtModelSelcet.Items.Count > 0)
                 txtModelSelcet.SelectedIndex = 0;
-            UpdateQtyLabel();
+            
 
             prevCycleStart = false;
             prevGraphStart = false;
@@ -271,7 +281,7 @@ namespace 인하테크개조
             SetCommunicationLamp(false);
             SetAutoManualLamp(false);
             InitPlot();
-            UpdateQtyLabel();
+           
 
             // XGT 통신 완성 후:
             try
@@ -418,8 +428,7 @@ namespace 인하테크개조
         {
             plcTimer.Stop();
 
-            SaveModelSettings();
-            SaveQtySettings();            
+            SaveModelSettings();                       
 
             if (plc != null)
                 plc.Disconnect();

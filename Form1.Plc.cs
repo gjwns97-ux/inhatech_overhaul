@@ -29,6 +29,13 @@ namespace 인하테크개조
                 short rawLoad = plc.ReadInt16(ADDR_LOAD_REAL);
 
                 ushort plcTotalQty = plc.ReadWord(ADDR_TOTAL_QTY);
+                int plcPassQty = plc.ReadDWord(ADDR_PASS_QTY);
+                int plcNgQty = plc.ReadDWord(ADDR_NG_QTY);
+
+                // CSV 저장용으로 최신 PLC 생산수량 보관
+                currentTotalQty = plcTotalQty;
+                currentPassQty = plcPassQty;
+                currentNgQty = plcNgQty;
 
                 // PLC 데이터 스케일 변환
                 double pos = rawPos / POS_SCALE;
@@ -101,6 +108,8 @@ namespace 인하테크개조
                 cycleStart,
                 graphStart,
                 plcTotalQty,
+                plcPassQty,
+                plcNgQty,
                 emgActive,
                 areaSensorActive);
 
@@ -132,8 +141,14 @@ namespace 인하테크개조
             bool cycleStart,
             bool graphStart,
             ushort plcTotalQty,
+            int plcPassQty,
+            int plcNgQty,
             bool emgActive,
             bool areaSensorActive)
+
+            // PLC 생산량 표시
+            
+
         {
             // 통신 정상
             plcConnected = true;
@@ -155,9 +170,11 @@ namespace 인하테크개조
             this.Text = $"graph={graphStart}, collecting={collecting}, X={servoX.Count}";
 
 
-            // PLC D110 값을 총생산량으로 표시
+            // PLC D110, D120, D124 값 표시
 
             lblQty.Text = plcTotalQty.ToString();
+            lblPqty.Text = plcPassQty.ToString();
+            lblNqty.Text = plcNgQty.ToString();
 
             if (areaSensorActive)
             {

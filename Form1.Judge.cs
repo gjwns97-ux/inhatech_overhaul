@@ -301,15 +301,7 @@ int boxIndex)
             collecting = false;
 
             // 최종 판정
-            lastJudgeOk = CheckFinalPass();
-
-            if (lastJudgeOk)
-                CurrentQty.PassQty++;
-            else
-                CurrentQty.NgQty++;
-
-            UpdateQtyLabel();
-            SaveQtySettings();
+            lastJudgeOk = CheckFinalPass();            
                         
             cycleJudgeDone = true;
 
@@ -319,14 +311,62 @@ int boxIndex)
             // 실제 측정값 표시
             ShowMeasuredValues();
 
+            // PLC 판정 전 현재 생산량 기억
+            int beforePassQty = plc.ReadDWord(ADDR_PASS_QTY);
+            int beforeNgQty = plc.ReadDWord(ADDR_NG_QTY);
+
             // PLC에 OK/NG 결과 전송
             WriteJudgeResultToPlc(lastJudgeOk);
 
-            // 결과 저장
-            SaveCycleData();
+            // PLC 생산량 증가 확인 후 CSV 저장
+            SaveCycleDataAfterQtyUpdate(
+                lastJudgeOk,
+                beforePassQty,
+                beforeNgQty);
 
             // 최종 그래프 표시
             DrawPlot();
+        }
+
+        private async void SaveCycleDataAfterQtyUpdate(
+    bool judgeOk,
+    int beforePassQty,
+    int beforeNgQty)
+        {
+            try
+            {
+                // 최대 1초 동안 PLC 생산량 증가 확인
+                for (int i = 0; i < 20; i++)
+                {
+                    await System.Threading.Tasks.Task.Delay(50);
+
+                    int currentPassQty = plc.ReadDWord(ADDR_PASS_QTY);
+                    int currentNgQty = plc.ReadDWord(ADDR_NG_QTY);
+
+                    if (judgeOk && currentPassQty > beforePassQty)
+                    {
+                        SaveCycleData();
+                        return;
+                    }
+
+                    if (!judgeOk && currentNgQty > beforeNgQty)
+                    {
+                        SaveCycleData();
+                        return;
+                    }
+                }
+
+                // 통신 지연 등으로 증가 확인 실패해도 검사 데이터는 저장
+                SaveCycleData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "생산량 확인 후 CSV 저장 실패\r\n" + ex.Message,
+                    "저장 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         private void EmergencyReset()

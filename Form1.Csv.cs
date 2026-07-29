@@ -54,17 +54,22 @@ namespace 인하테크개조
                             if (newFile)
                             {
                                 sw.WriteLine(
-                                    "시간,모델명,고속이송거리,압입이송거리,고속속도,압입속도,압입하중," +
-                                    "압입부거리MIN,압입부거리MAX,압입부하중MIN,압입부하중MAX," +
-                                    "밀착부거리MIN,밀착부거리MAX,밀착부하중MIN,밀착부하중MAX," +
-                                    "최종거리,최대하중,판정");
+                                    "시간,모델명,고속하강위치[mm],시트압입위치[mm],고속속도[mm/sec],압입속도[mm/sec],압입하중[kgf]," +
+                                    "압입부거리MIN[mm],압입부거리MAX[mm],압입부하중MIN[kgf],압입부하중MAX[kgf]," +
+                                    "밀착부거리MIN[mm],밀착부거리MAX[mm],밀착부하중MIN[kgf],밀착부하중MAX[kgf]," +
+                                    "최종거리[mm],최대하중[kgf],총생산량[EA],양품생산량[EA],불량발생량[EA],판정");
                             }
         
                             double finalPos = servoX.Count > 0 ? servoX.Last() : 0;
                             double maxLoad = loadY.Count > 0 ? loadY.Max() : 0;
                             ModelConfig c = CurrentConfig;
-        
-                            sw.WriteLine(string.Join(",",
+
+                            // CSV 저장 직전 PLC 최신 생산량 읽기
+                            int saveTotalQty = plc.ReadWord(ADDR_TOTAL_QTY);
+                            int savePassQty = plc.ReadDWord(ADDR_PASS_QTY);
+                            int saveNgQty = plc.ReadDWord(ADDR_NG_QTY);
+
+                    sw.WriteLine(string.Join(",",
                                  "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                                 Csv(c.ModelName),
                                 Inv(c.HighDistance), Inv(c.LowDistance),
@@ -74,8 +79,11 @@ namespace 인하테크개조
                                 Inv(c.Boxes[1].PosMin), Inv(c.Boxes[1].PosMax),
                                 Inv(c.Boxes[1].LoadMin), Inv(c.Boxes[1].LoadMax),
                                 Inv(finalPos), Inv(maxLoad),
+                                saveTotalQty,
+                                savePassQty,
+                                saveNgQty,
                                 lastJudgeOk ? "OK" : "NG"));
-                        }
+                }
                     }
                     catch (Exception ex)
                     {

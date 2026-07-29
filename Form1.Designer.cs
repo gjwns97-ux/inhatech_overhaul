@@ -102,9 +102,7 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel48 = new System.Windows.Forms.Panel();
             this.btnNqtyR = new System.Windows.Forms.Button();
-            this.panel47 = new System.Windows.Forms.Panel();
             this.btnPqtyR = new System.Windows.Forms.Button();
             this.panel43 = new System.Windows.Forms.Panel();
             this.lblNqty = new System.Windows.Forms.Label();
@@ -118,7 +116,6 @@
             this.lblQty = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
-            this.panel46 = new System.Windows.Forms.Panel();
             this.btnQtyR = new System.Windows.Forms.Button();
             this.panel51 = new System.Windows.Forms.Panel();
             this.panel38 = new System.Windows.Forms.Panel();
@@ -173,6 +170,12 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lblResponseOff = new System.Windows.Forms.Label();
             this.lblResponseOn = new System.Windows.Forms.Label();
+            this.panel46 = new System.Windows.Forms.Panel();
+            this.panel47 = new System.Windows.Forms.Panel();
+            this.panel48 = new System.Windows.Forms.Panel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -193,15 +196,12 @@
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.panel48.SuspendLayout();
-            this.panel47.SuspendLayout();
             this.panel43.SuspendLayout();
             this.panel42.SuspendLayout();
             this.panel41.SuspendLayout();
             this.panel40.SuspendLayout();
             this.panel39.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.panel46.SuspendLayout();
             this.panel38.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel35.SuspendLayout();
@@ -227,6 +227,9 @@
             this.panel49.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.panel46.SuspendLayout();
+            this.panel47.SuspendLayout();
+            this.panel48.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -246,8 +249,11 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnNqtyR);
             this.panel1.Controls.Add(this.btnPlcConnect);
+            this.panel1.Controls.Add(this.btnPqtyR);
             this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.btnQtyR);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1107,50 +1113,30 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(497, 256);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // panel48
-            // 
-            this.panel48.Controls.Add(this.btnNqtyR);
-            this.panel48.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel48.Location = new System.Drawing.Point(398, 172);
-            this.panel48.Name = "panel48";
-            this.panel48.Padding = new System.Windows.Forms.Padding(3);
-            this.panel48.Size = new System.Drawing.Size(93, 78);
-            this.panel48.TabIndex = 10;
-            // 
             // btnNqtyR
             // 
             this.btnNqtyR.BackColor = System.Drawing.Color.NavajoWhite;
-            this.btnNqtyR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNqtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnNqtyR.Location = new System.Drawing.Point(3, 3);
+            this.btnNqtyR.Location = new System.Drawing.Point(1475, 9);
             this.btnNqtyR.Name = "btnNqtyR";
             this.btnNqtyR.Size = new System.Drawing.Size(87, 72);
             this.btnNqtyR.TabIndex = 4;
             this.btnNqtyR.Text = "RESET";
             this.btnNqtyR.UseVisualStyleBackColor = false;
+            this.btnNqtyR.Visible = false;
             this.btnNqtyR.Click += new System.EventHandler(this.btnNqtyR_Click);
-            // 
-            // panel47
-            // 
-            this.panel47.Controls.Add(this.btnPqtyR);
-            this.panel47.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel47.Location = new System.Drawing.Point(398, 89);
-            this.panel47.Name = "panel47";
-            this.panel47.Padding = new System.Windows.Forms.Padding(3);
-            this.panel47.Size = new System.Drawing.Size(93, 77);
-            this.panel47.TabIndex = 9;
             // 
             // btnPqtyR
             // 
             this.btnPqtyR.BackColor = System.Drawing.Color.NavajoWhite;
-            this.btnPqtyR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPqtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnPqtyR.Location = new System.Drawing.Point(3, 3);
+            this.btnPqtyR.Location = new System.Drawing.Point(1382, 9);
             this.btnPqtyR.Name = "btnPqtyR";
             this.btnPqtyR.Size = new System.Drawing.Size(87, 71);
             this.btnPqtyR.TabIndex = 4;
             this.btnPqtyR.Text = "RESET";
             this.btnPqtyR.UseVisualStyleBackColor = false;
+            this.btnPqtyR.Visible = false;
             this.btnPqtyR.Click += new System.EventHandler(this.btnPqtyR_Click);
             // 
             // panel43
@@ -1285,22 +1271,11 @@
             this.label16.Text = "총 생산량";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel46
-            // 
-            this.panel46.Controls.Add(this.btnQtyR);
-            this.panel46.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel46.Location = new System.Drawing.Point(398, 6);
-            this.panel46.Name = "panel46";
-            this.panel46.Padding = new System.Windows.Forms.Padding(3);
-            this.panel46.Size = new System.Drawing.Size(93, 77);
-            this.panel46.TabIndex = 8;
-            // 
             // btnQtyR
             // 
             this.btnQtyR.BackColor = System.Drawing.Color.NavajoWhite;
-            this.btnQtyR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnQtyR.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnQtyR.Location = new System.Drawing.Point(3, 3);
+            this.btnQtyR.Location = new System.Drawing.Point(1283, 9);
             this.btnQtyR.Name = "btnQtyR";
             this.btnQtyR.Size = new System.Drawing.Size(87, 71);
             this.btnQtyR.TabIndex = 3;
@@ -1619,7 +1594,7 @@
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(136, 44);
             this.label43.TabIndex = 2;
-            this.label43.Text = "압입 종료위치 [mm]";
+            this.label43.Text = "시트 압입위치 [mm]";
             this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel23
@@ -1916,6 +1891,72 @@
             this.lblResponseOn.Text = "ON";
             this.lblResponseOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel46
+            // 
+            this.panel46.Controls.Add(this.label42);
+            this.panel46.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel46.Location = new System.Drawing.Point(398, 6);
+            this.panel46.Name = "panel46";
+            this.panel46.Padding = new System.Windows.Forms.Padding(3);
+            this.panel46.Size = new System.Drawing.Size(93, 77);
+            this.panel46.TabIndex = 8;
+            // 
+            // panel47
+            // 
+            this.panel47.Controls.Add(this.label44);
+            this.panel47.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel47.Location = new System.Drawing.Point(398, 89);
+            this.panel47.Name = "panel47";
+            this.panel47.Padding = new System.Windows.Forms.Padding(3);
+            this.panel47.Size = new System.Drawing.Size(93, 77);
+            this.panel47.TabIndex = 9;
+            // 
+            // panel48
+            // 
+            this.panel48.Controls.Add(this.label45);
+            this.panel48.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel48.Location = new System.Drawing.Point(398, 172);
+            this.panel48.Name = "panel48";
+            this.panel48.Padding = new System.Windows.Forms.Padding(3);
+            this.panel48.Size = new System.Drawing.Size(93, 78);
+            this.panel48.TabIndex = 10;
+            // 
+            // label42
+            // 
+            this.label42.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label42.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label42.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label42.Location = new System.Drawing.Point(3, 3);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(87, 71);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "EA";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label44
+            // 
+            this.label44.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label44.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label44.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label44.Location = new System.Drawing.Point(3, 3);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(87, 71);
+            this.label44.TabIndex = 1;
+            this.label44.Text = "EA";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label45
+            // 
+            this.label45.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label45.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label45.Font = new System.Drawing.Font("굴림", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label45.Location = new System.Drawing.Point(3, 3);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(87, 72);
+            this.label45.TabIndex = 1;
+            this.label45.Text = "EA";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1951,15 +1992,12 @@
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel48.ResumeLayout(false);
-            this.panel47.ResumeLayout(false);
             this.panel43.ResumeLayout(false);
             this.panel42.ResumeLayout(false);
             this.panel41.ResumeLayout(false);
             this.panel40.ResumeLayout(false);
             this.panel39.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
-            this.panel46.ResumeLayout(false);
             this.panel38.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel35.ResumeLayout(false);
@@ -1991,6 +2029,9 @@
             this.panel49.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.panel46.ResumeLayout(false);
+            this.panel47.ResumeLayout(false);
+            this.panel48.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2111,10 +2152,7 @@
         private System.Windows.Forms.Label lblNqty;
         private System.Windows.Forms.Label lblPqty;
         private System.Windows.Forms.Label lblQty;
-        private System.Windows.Forms.Panel panel46;
-        private System.Windows.Forms.Panel panel48;
         private System.Windows.Forms.Button btnNqtyR;
-        private System.Windows.Forms.Panel panel47;
         private System.Windows.Forms.Button btnPqtyR;
         private System.Windows.Forms.Button btnQtyR;
         private System.Windows.Forms.Panel panel50;
@@ -2141,6 +2179,12 @@
         private System.Windows.Forms.Panel panel29;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Button btnAxisSet;
+        private System.Windows.Forms.Panel panel48;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Panel panel47;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Panel panel46;
+        private System.Windows.Forms.Label label42;
     }
 }
 
